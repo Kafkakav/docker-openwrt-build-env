@@ -102,3 +102,36 @@ Other, but very similar projects:
 * [openwrt-imagebuilder-action](https://github.com/izer-xyz/openwrt-imagebuilder-action)
 * [docker-openwrt-buildroot](https://github.com/noonien/docker-openwrt-buildroot)
 * [openwrt-docker-toolchain](https://github.com/mchsk/openwrt-docker-toolchain)
+
+
+# OpenWRT 
+## Expanding the filesystem
+https://openwrt.org/docs/guide-user/installation/installation_methods/sd_card
+### ext4 image
+#### step 1
+```
+opkg update
+opkg install parted tune2fs resize2fs
+```
+#### step 2
+```
+parted
+p
+resizepart 2 32GB
+q
+```
+#### step 3
+```
+mount -o remount,ro /                  #Remount root as Read Only
+tune2fs -O^resize_inode /dev/mmcblk0p2    #Remove reserved GDT blocks
+fsck.ext4 /dev/mmcblk0p2                  #Fix part, answer yes to remove GDT blocks remnants
+```
+#### step 4
+```
+reboot
+```
+#### step 5
+```
+resize2fs /dev/mmcblk0p2
+```
+
