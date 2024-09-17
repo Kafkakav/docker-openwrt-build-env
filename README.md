@@ -103,6 +103,50 @@ Other, but very similar projects:
 * [docker-openwrt-buildroot](https://github.com/noonien/docker-openwrt-buildroot)
 * [openwrt-docker-toolchain](https://github.com/mchsk/openwrt-docker-toolchain)
 
+# 其它編譯環境說明
+##  Ubuntu 18.04 
+```
+$ sudo apt update
+$ sudo apt install build-essential ccache ecj fastjar file g++ gawk \
+gettext git java-propose-classpath libelf-dev libncurses5-dev \
+libncursesw5-dev libssl-dev python python2.7-dev python3 unzip wget \
+python3-distutils python3-setuptools rsync subversion swig time \
+xsltproc zlib1g-dev
+
+$ git clone https://git.openwrt.org/openwrt/openwrt.git
+$ cd openwrt
+-- 拉相關package tools source code --
+$ ./scripts/feeds update -a
+$ ./scripts/feeds install -a
+$ make menuconfig
+$ make -j1 V=s
+```
+## menuconfig - Raspberry Pi4
+```
+1. Target System = Broadcom BCM27xx
+2. Subtarget = BCM2711 boards 64bit
+3. Target Profile = Raspberry Pi 4b
+4. Target Images = squashfs
+5. Kernel Modules -
+   -- USB Support = kmod-usb-hid
+         = kmod-usb-net
+         = kmod-usb-net-asix
+         = kmod-usb-net-asix-ax88179
+         = kmod-usb2
+         = kmod-usb3
+6. Libraries
+   -- libssh
+   -- libssh2
+   -- (N) libustream-mbedtls
+   -- (Y) libustream-openssl
+   -- (N) libustream-wolfssl
+7. LUCI -
+   -- Collections -
+        = luci
+        = luci-ssl-openssl
+9. Exit
+10. save
+```
 
 # OpenWRT 
 ## Expanding the filesystem
