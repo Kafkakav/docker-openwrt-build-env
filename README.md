@@ -19,7 +19,7 @@ A smaller container based on Alpine Linux is available in the alpine branch. But
 * build Docker image:
 
 ```shell
-git clone https://github.com/mwarning/docker-openwrt-builder.git]
+git clone https://github.com/mwarning/docker-openwrt-builder.git
 cd docker-openwrt-builder
 docker build -t openwrt_builder .
 ```
